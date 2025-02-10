@@ -568,111 +568,82 @@ write.csv(global_wetlands_reduction_30, file = file.path(Sys.getenv("R_PROJECTS_
 
 #aggregate results by countries
 country_aggregated_value_change_10 <- global_wetlands_reduction_10 %>% group_by(Country_Codes) %>% 
-  summarise(total_value_of_change_10_ols = sum(tot_value_ols),
-            total_value_of_change_10_tr = sum(tot_value_tr),
-            total_value_of_change_10_ols_lwr = sum(tot_value_ols_lwr),
-            total_value_of_change_10_ols_upr = sum(tot_value_ols_upr),
-            total_value_of_change_10_tr_lwr = sum(tot_value_tr_lwr),
-            total_value_of_change_10_tr_upr = sum(tot_value_tr_upr))
+  summarise(total_value_of_change_10_ols = sum(value_change),
+            total_value_of_change_10_tr = sum(value_change_tr),
+            total_value_of_change_10_ols_lwr = sum(value_change_lwr),
+            total_value_of_change_10_ols_upr = sum(value_change_upr),
+            total_value_of_change_10_tr_lwr = sum(value_change_tr_lwr),
+            total_value_of_change_10_tr_upr = sum(value_change_tr_upr))
 
 #aggregate values for 20% reduction scenario
 country_aggregated_value_change_20 <- global_wetlands_reduction_20 %>% group_by(Country_Codes) %>%
-  summarise(total_value_of_change_20_ols = sum(tot_value_ols),
-            total_value_of_change_20_tr = sum(tot_value_tr),
-            total_value_of_change_20_ols_lwr = sum(tot_value_ols_lwr),
-            total_value_of_change_20_ols_upr = sum(tot_value_ols_upr),
-            total_value_of_change_20_tr_lwr = sum(tot_value_tr_lwr),
-            total_value_of_change_20_tr_upr = sum(tot_value_tr_upr))
+  summarise(total_value_of_change_20_ols = sum(value_change),
+            total_value_of_change_20_tr = sum(value_change_tr),
+            total_value_of_change_20_ols_lwr = sum(value_change_lwr),
+            total_value_of_change_20_ols_upr = sum(value_change_upr),
+            total_value_of_change_20_tr_lwr = sum(value_change_tr_lwr),
+            total_value_of_change_20_tr_upr = sum(value_change_tr_upr))
 
 #aggregate values for 30% reduction scenario
 country_aggregated_value_change_30 <- global_wetlands_reduction_30 %>% group_by(Country_Codes) %>%
-  summarise(total_value_of_change_30_ols = sum(tot_value_ols), 
-           total_value_of_change_30_tr = sum(tot_value_tr),
-            total_value_of_change_30_ols_lwr = sum(tot_value_ols_lwr),
-            total_value_of_change_30_ols_upr = sum(tot_value_ols_upr),
-            total_value_of_change_30_tr_lwr = sum(tot_value_tr_lwr),
-            total_value_of_change_30_tr_upr = sum(tot_value_tr_upr))
+  summarise(total_value_of_change_30_ols = sum(value_change), 
+            total_value_of_change_30_tr = sum(value_change_tr),
+            total_value_of_change_30_ols_lwr = sum(value_change_lwr),
+            total_value_of_change_30_ols_upr = sum(value_change_upr),
+            total_value_of_change_30_tr_lwr = sum(value_change_tr_lwr),
+            total_value_of_change_30_tr_upr = sum(value_change_tr_upr))
 
 #combine all scenarios into a single dataframe
-country_aggregated_value_changes <- country_aggregated_value_change_10 %>% full_join(country_aggregated_value_change_20, by = "Country_Codes") %>% full_join(country_aggregated_value_change_30, by = "Country_Codes")
+country_aggregated_value_changes <- country_aggregated_value_change_10 %>% 
+  full_join(country_aggregated_value_change_20, by = "Country_Codes") %>% 
+  full_join(country_aggregated_value_change_30, by = "Country_Codes")
 
 #save the results
 write.csv(country_aggregated_value_changes, file = file.path(Sys.getenv("R_PROJECTS_PATH"), "meta_regression_benefit_transfer_coastal_wetlands", "country_aggregated_value_changes.csv"), row.names = FALSE)
 
 ###Results 
 #global welfare losses for OLS method
-global_value_change_10_scenario_ols <- (sum(global_wetlands_reduction_10$tot_value_ols))/1000000
-global_value_change_10_scenario_ols_lwr <- (sum(global_wetlands_reduction_10$tot_value_ols_lwr))/1000000
-global_value_change_10_scenario_ols_upr <- (sum(global_wetlands_reduction_10$tot_value_ols_upr))/1000000
-      
+global_value_change_10_scenario_ols <- (sum(global_wetlands_reduction_10$value_change))/1000000
+global_value_change_10_scenario_ols_lwr <- (sum(global_wetlands_reduction_10$value_change_lwr))/1000000
+global_value_change_10_scenario_ols_upr <- (sum(global_wetlands_reduction_10$value_change_upr))/1000000
+
 #global welfare losses for TR method
-global_value_change_10_scenario_tr <- (sum(global_wetlands_reduction_10$tot_value_tr))/1000000
-global_value_change_10_scenario_tr_lwr <- (sum(global_wetlands_reduction_10$tot_value_tr_lwr))/1000000
-global_value_change_10_scenario_tr_upr <- (sum(global_wetlands_reduction_10$tot_value_tr_upr))/1000000
-      
-#print results
-cat("Global welfare losses in 10% wetlands loss scenario:\n")
-cat("OLS Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_10_scenario_ols), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_10_scenario_ols_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_10_scenario_ols_upr), "million US$ PPP\n\n")
-      
-cat("TR Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_10_scenario_tr), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_10_scenario_tr_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_10_scenario_tr_upr), "million US$ PPP\n")
+global_value_change_10_scenario_tr <- (sum(global_wetlands_reduction_10$value_change_tr))/1000000
+global_value_change_10_scenario_tr_lwr <- (sum(global_wetlands_reduction_10$value_change_tr_lwr))/1000000
+global_value_change_10_scenario_tr_upr <- (sum(global_wetlands_reduction_10$value_change_tr_upr))/1000000
 
 #20% scenario calculations
-global_value_change_20_scenario_ols <- (sum(global_wetlands_reduction_20$tot_value_ols))/1000000
-global_value_change_20_scenario_ols_lwr <- (sum(global_wetlands_reduction_20$tot_value_ols_lwr))/1000000
-global_value_change_20_scenario_ols_upr <- (sum(global_wetlands_reduction_20$tot_value_ols_upr))/1000000
+global_value_change_20_scenario_ols <- (sum(global_wetlands_reduction_20$value_change))/1000000
+global_value_change_20_scenario_ols_lwr <- (sum(global_wetlands_reduction_20$value_change_lwr))/1000000
+global_value_change_20_scenario_ols_upr <- (sum(global_wetlands_reduction_20$value_change_upr))/1000000
 
-global_value_change_20_scenario_tr <- (sum(global_wetlands_reduction_20$tot_value_tr))/1000000
-global_value_change_20_scenario_tr_lwr <- (sum(global_wetlands_reduction_20$tot_value_tr_lwr))/1000000
-global_value_change_20_scenario_tr_upr <- (sum(global_wetlands_reduction_20$tot_value_tr_upr))/1000000
-
-cat("Global welfare losses in 20% wetlands loss scenario:\n")
-cat("OLS Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_20_scenario_ols), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_20_scenario_ols_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_20_scenario_ols_upr), "million US$ PPP\n\n")
-
-cat("TR Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_20_scenario_tr), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_20_scenario_tr_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_20_scenario_tr_upr), "million US$ PPP\n\n")
+global_value_change_20_scenario_tr <- (sum(global_wetlands_reduction_20$value_change_tr))/1000000
+global_value_change_20_scenario_tr_lwr <- (sum(global_wetlands_reduction_20$value_change_tr_lwr))/1000000
+global_value_change_20_scenario_tr_upr <- (sum(global_wetlands_reduction_20$value_change_tr_upr))/1000000
 
 #30% scenario calculations
-global_value_change_30_scenario_ols <- (sum(global_wetlands_reduction_30$tot_value_ols))/1000000
-global_value_change_30_scenario_ols_lwr <- (sum(global_wetlands_reduction_30$tot_value_ols_lwr))/1000000
-global_value_change_30_scenario_ols_upr <- (sum(global_wetlands_reduction_30$tot_value_ols_upr))/1000000
+global_value_change_30_scenario_ols <- (sum(global_wetlands_reduction_30$value_change))/1000000
+global_value_change_30_scenario_ols_lwr <- (sum(global_wetlands_reduction_30$value_change_lwr))/1000000
+global_value_change_30_scenario_ols_upr <- (sum(global_wetlands_reduction_30$value_change_upr))/1000000
 
-global_value_change_30_scenario_tr <- (sum(global_wetlands_reduction_30$tot_value_tr))/1000000
-global_value_change_30_scenario_tr_lwr <- (sum(global_wetlands_reduction_30$tot_value_tr_lwr))/1000000
-global_value_change_30_scenario_tr_upr <- (sum(global_wetlands_reduction_30$tot_value_tr_upr))/1000000
-
-cat("Global welfare losses in 30% wetlands loss scenario:\n")
-cat("OLS Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_30_scenario_ols), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_30_scenario_ols_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_30_scenario_ols_upr), "million US$ PPP\n\n")
-
-cat("TR Method:\n")
-cat("  Estimate:", sprintf("%.2f", global_value_change_30_scenario_tr), "million US$ PPP\n")
-cat("  Lower bound:", sprintf("%.2f", global_value_change_30_scenario_tr_lwr), "million US$ PPP\n")
-cat("  Upper bound:", sprintf("%.2f", global_value_change_30_scenario_tr_upr), "million US$ PPP\n")
+global_value_change_30_scenario_tr <- (sum(global_wetlands_reduction_30$value_change_tr))/1000000
+global_value_change_30_scenario_tr_lwr <- (sum(global_wetlands_reduction_30$value_change_tr_lwr))/1000000
+global_value_change_30_scenario_tr_upr <- (sum(global_wetlands_reduction_30$value_change_tr_upr))/1000000
 
 #create a dataframe with all global results
-global_results <- data.frame(Scenario = c("10% Reduction", "20% Reduction", "30% Reduction"),
-OLS_Estimate = c(global_value_change_10_scenario_ols, global_value_change_20_scenario_ols, global_value_change_30_scenario_ols),
-OLS_Lower_Bound = c(global_value_change_10_scenario_ols_lwr, global_value_change_20_scenario_ols_lwr, global_value_change_30_scenario_ols_lwr),
-OLS_Upper_Bound = c(global_value_change_10_scenario_ols_upr, global_value_change_20_scenario_ols_upr, global_value_change_30_scenario_ols_upr),
-TR_Estimate = c(global_value_change_10_scenario_tr, global_value_change_20_scenario_tr, global_value_change_30_scenario_tr),
-TR_Lower_Bound = c(global_value_change_10_scenario_tr_lwr, global_value_change_20_scenario_tr_lwr, global_value_change_30_scenario_tr_lwr),
-TR_Upper_Bound = c(global_value_change_10_scenario_tr_upr, global_value_change_20_scenario_tr_upr,global_value_change_30_scenario_tr_upr))
+global_results <- data.frame(
+  Scenario = c("10% Reduction", "20% Reduction", "30% Reduction"),
+  OLS_Estimate = c(global_value_change_10_scenario_ols, global_value_change_20_scenario_ols, global_value_change_30_scenario_ols),
+  OLS_Lower_Bound = c(global_value_change_10_scenario_ols_lwr, global_value_change_20_scenario_ols_lwr, global_value_change_30_scenario_ols_lwr),
+  OLS_Upper_Bound = c(global_value_change_10_scenario_ols_upr, global_value_change_20_scenario_ols_upr, global_value_change_30_scenario_ols_upr),
+  TR_Estimate = c(global_value_change_10_scenario_tr, global_value_change_20_scenario_tr, global_value_change_30_scenario_tr),
+  TR_Lower_Bound = c(global_value_change_10_scenario_tr_lwr, global_value_change_20_scenario_tr_lwr, global_value_change_30_scenario_tr_lwr),
+  TR_Upper_Bound = c(global_value_change_10_scenario_tr_upr, global_value_change_20_scenario_tr_upr, global_value_change_30_scenario_tr_upr)
+)
 
 #export
 write.csv(global_results, file = file.path(Sys.getenv("R_PROJECTS_PATH"), "meta_regression_benefit_transfer_coastal_wetlands", "global_welfare_losses_scenarios.csv"), row.names = FALSE)
+
 
 
 
