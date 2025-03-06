@@ -1,6 +1,6 @@
 # Coastal Wetlands Ecosystem Services Valuation
 
-This GitHub repository contains the code and resources used for the global valuation of coastal wetlands, focusing on the economic benefits provided by these ecosystems, particularly through avoided damages for coastal protection services. We employ two primary methods to estimate the value of coastal wetland ecosystem services:
+This repository contains the code and resources used for the global valuation of coastal wetlands, focusing on the economic benefits provided by these ecosystems, particularly through avoided damages for coastal protection services. We employ two primary methods to estimate the value of coastal wetland ecosystem services:
 
 1. **Avoided damages using DIVA**: The Dynamic Interactive Vulnerability Assessment (DIVA) model [^1] is used to quantify the avoided damages associated with the loss of coastal protection services provided by wetlands. By estimating the economic value lost when coastal wetlands are reduced, we can assess the impact on global welfare and specific countries' economies.
 [^1]: DIVA model web page https://globalclimateforum.org/portfolio-item/diva-model/
@@ -36,19 +36,21 @@ The repository integrates a variety of data sources including:
 ### Visualization and Analysis Tools
 
 - **Data Visualization**: Graphs, maps, and charts are used to illustrate how wetland area reductions impact economic welfare globally and country-wise.
-- **Statistical Analysis**: R scripts and Python notebooks for statistical tests (e.g., meta-analysis) that help in validating the models' results and drawing meaningful insights from the data.
+- **Statistical Analysis**: R and Julia scripts for statistical tests (e.g., meta-analysis) that help in validating the models' results and drawing meaningful insights from the data.
 
 ### Usage
 
-The repository is designed to be flexible, allowing users to:
+The repository is designed to reproduce the analysis of global coastal wetlands ecosystem services valuation, also allowing users to:
 
 - Run analyses on different scenarios of coastal wetland reduction.
+- Run the sensitivity analysis by choosing different wetlands attenuation rates.
 - Extend the methods by incorporating new datasets or refining existing models.
 - Visualize results using the provided tools or through custom scripts.
 
 ## Getting Started
 
-To get started with this repository, please refer to the detailed documentation in each subfolder and the main README file within this repository. The documentation includes installation instructions, usage guidelines, and examples of how to run analyses.
+To get started with this repository it is essential to use the DIVACoast.jl library [^2], please refer to the detailed documentation [^12] and the main README file within this repository. The DIVACoast.jl documentation includes installation instructions, usage guidelines and examples of how to run analyses.
+[^12]: https://globalclimateforum.gitlab.io/DIVACoast.jl/
 
 ## Contributing
 
@@ -61,8 +63,8 @@ We welcome contributions from researchers and developers interested in advancing
 
 ## Contact
 
-For questions, feedback, or to report issues, please open an issue in the GitHub repository. For more technical discussions, you can reach out to the maintainers via email or other communication channels provided on our project page.
+For questions, feedback, or to report issues, please open an issue in the repository. For more technical discussions, you can reach out to the maintainers via email or other communication channels provided on our project page.
 
 ---
 
-This readme file provides a structured overview of the purpose and functionality of the repository, aimed at facilitating understanding for potential users, contributors, and collaborators interested in coastal wetlands ecosystem services valuation.
+This readme file provides a structured overview of the purpose and functionality of the repository, aimed at facilitating understanding for potential users, contributors and collaborators interested in coastal wetlands ecosystem services valuation and for the reproducibility of scientific research.
