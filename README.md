@@ -3,7 +3,7 @@
 This repository contains the code and resources used for the global valuation of coastal wetlands, focusing on the economic benefits provided by these ecosystems, particularly through avoided damages for coastal protection services. We employ two primary methods to estimate the value of coastal wetland ecosystem services:
 
 1. **Avoided damages using DIVA**: The Dynamic Interactive Vulnerability Assessment (DIVA) model [^1] is used to quantify the avoided damages associated with the loss of coastal protection services provided by wetlands. By estimating the economic value lost when coastal wetlands are reduced, we can assess the impact on global welfare and specific countries' economies.
-[^1]: DIVA model web page https://globalclimateforum.org/portfolio-item/diva-model/
+[^1]: DIVA model web page [https://globalclimateforum.org/portfolio-item/diva-model/](https://globalclimateforum.org/diva_modelling/)
 2. **Meta-Regression Benefit Transfer**: This method estimates the demand for ecosystem services across different regions globally. It is particularly useful for marginal valuation analyses and assessing trade-offs among multiple ecosystem services. The meta-regression model helps to generalize findings from similar studies conducted in various contexts, providing a robust basis for benefit transfer across countries and ecosystems.
 
 ## Repository Contents
@@ -11,7 +11,7 @@ This repository contains the code and resources used for the global valuation of
 ### Models and Methods
 
 1. **Avoided Damages Method (DIVA Model)**: This section contains the implementation of the DIVA model [^2] used to estimate economic losses associated with reduced coastal wetlands. The model inputs environmental data, socioeconomic factors and calculates potential damages avoided by maintaining wetland areas.
-[^2]: DIVA library https://gitlab.com/globalclimateforum/diva_library
+[^2]: DIVACoast library [https://gitlab.com/globalclimateforum/diva_library](https://github.com/GlobalClimateForum/DIVACoast.jl.git)
 
 3. **Meta-Regression Benefit Transfer**: This includes code and documentation for conducting meta-regressions to transfer benefits from similar studies across different regions globally. It helps in understanding the demand for coastal wetlands ecosystem services under various scenarios of reduction.
 
